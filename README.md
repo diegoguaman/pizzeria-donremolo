@@ -1,54 +1,79 @@
-# React + TypeScript + Vite
+# 🍕 Pizzería Don Remolo - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📌 Descripción del Proyecto
+Este es el frontend de **Pizzería Don Remolo**, una aplicación web que permite a los usuarios visualizar un menú de comidas, personalizar sus pedidos, agregarlos al carrito y enviarlos por WhatsApp al local sin necesidad de registrarse.
 
-Currently, two official plugins are available:
+El objetivo principal es ofrecer una experiencia rápida e intuitiva para que los clientes puedan realizar pedidos fácilmente.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Tecnologías Utilizadas
+- **React + Vite** - Para el desarrollo rápido del frontend.
+- **TypeScript** - Para un código más robusto y seguro.
+- **Material UI (MUI)** - Para componentes estilizados y responsivos.
+- **Zustand** - Para la gestión del estado global del carrito de compras.
+- **React Router** - Para la navegación entre páginas.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 📂 Estructura del Proyecto
+
+```
+📦 pizzeria-frontend
+│── 📂 src
+│   ├── 📂 api/               # Servicios para llamadas a la API (futuro)
+│   ├── 📂 assets/            # Recursos estáticos
+│   ├── 📂 components/        # Componentes reutilizables (Navbar, Footer, ProductCard...)
+│   ├── 📂 layouts/           # Layouts de la aplicación
+│   ├── 📂 pages/             # Páginas principales (Menú, Carrito, Confirmación de Pedido)
+│   ├── 📂 store/             # Gestión de estado con Zustand (cartStore.ts)
+│   ├── 📂 styles/            # Estilos globales
+│   ├── App.tsx               # Componente principal
+│   ├── main.tsx              # Punto de entrada de la app
+│── 📜 package.json           # Dependencias del proyecto
+│── 📜 tsconfig.json          # Configuración de TypeScript
+│── 📜 vite.config.ts         # Configuración de Vite
+│── 📜 README.md              # Documentación del proyecto
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+## 🛠 Configuración Inicial
+### 1️⃣ Clonar el repositorio
+```sh
+ git clone https://github.com/usuario/pizzeria-frontend.git
+ cd pizzeria-frontend
 ```
+
+### 2️⃣ Instalar dependencias
+```sh
+npm install
+```
+
+### 3️⃣ Ejecutar el proyecto en modo desarrollo
+```sh
+npm run dev
+```
+
+### 4️⃣ Abrir en el navegador
+Por defecto, la aplicación estará disponible en:
+```
+http://localhost:5173
+```
+
+---
+
+## 📌 Funcionalidades
+✅ **Menú de Comidas** - Listado de productos categorizados (Pizzas, Empanadas, Bebidas, Postres).
+✅ **Personalización de Ingredientes** - Los usuarios pueden agregar o quitar ingredientes antes de añadir el producto al carrito.
+✅ **Carrito de Compras** - Vista del pedido con opción de eliminar productos o vaciar el carrito.
+✅ **Confirmación del Pedido** - Antes de enviarlo, se muestra un resumen detallado.
+✅ **Envío por WhatsApp** - El pedido se envía directamente al número del local con un mensaje predefinido.
+
+---
+
+## 📜 Licencia
+Este proyecto es de código abierto y puede ser utilizado libremente.
+
+📌 **¿Tienes preguntas o sugerencias?** ¡Contribuye al proyecto o abre un issue! 🚀
+
