@@ -17,7 +17,7 @@ export default function Navbar() {
   };
 
   const generateWhatsAppLink = () => {
-    const phoneNumber = "5491122334455"; 
+    const phoneNumber = "5491122334455"; // 📌 Reemplázalo con el número real de la pizzería
     let message = "Hola, quiero hacer un pedido:\n";
 
     cart.forEach((item) => {
@@ -60,32 +60,33 @@ export default function Navbar() {
                 {cart.map((item) => (
                   <ListItem key={item.id} sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                     <ListItemText primary={`${item.name}`} secondary={`$${item.price * item.quantity}`} />
-                    
-                    <Button 
-                      variant="contained" 
-                      color="secondary" 
-                      size="small" 
+
+                    {/* Botones para aumentar o disminuir cantidad */}
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      size="small"
                       onClick={() => decreaseQuantity(item.id)}
-                      sx={{ minWidth: "32px", fontSize: "18px" }}
+                      sx={{ minWidth: "20px", fontSize: "16px", padding: "2px" }}
                     >
                       -
                     </Button>
 
-                    <Typography sx={{ margin: "0 8px", fontWeight: "bold" }}>
+                    <Typography sx={{ margin: "0 8px", fontWeight: "bold", fontSize: "14px" }}>
                       {item.quantity}
                     </Typography>
 
-                    <Button 
-                      variant="contained" 
-                      color="primary" 
-                      size="small" 
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      size="small"
                       onClick={() => increaseQuantity(item.id)}
-                      sx={{ minWidth: "32px", fontSize: "18px" }}
+                      sx={{ minWidth: "20px", fontSize: "16px", padding: "2px" }}
                     >
                       +
                     </Button>
 
-                    <IconButton onClick={() => removeFromCart(item.id)} color="error">
+                    <IconButton onClick={() => removeFromCart(item.id)} color="error" size="small">
                       <DeleteForeverIcon />
                     </IconButton>
                   </ListItem>
@@ -96,20 +97,20 @@ export default function Navbar() {
                 Total: ${cart.reduce((sum, item) => sum + item.price * item.quantity, 0)}
               </Typography>
 
-              <Button 
-                fullWidth 
-                variant="contained" 
-                color="secondary" 
-                onClick={clearCart} 
+              <Button
+                fullWidth
+                variant="contained"
+                color="secondary"
+                onClick={clearCart}
                 sx={{ marginTop: 2 }}
               >
                 Vaciar Carrito
               </Button>
 
-              <Button 
-                fullWidth 
-                variant="contained" 
-                color="success" 
+              <Button
+                fullWidth
+                variant="contained"
+                color="success"
                 startIcon={<WhatsAppIcon />}
                 sx={{ marginTop: 1 }}
                 onClick={() => window.location.href = generateWhatsAppLink()}
