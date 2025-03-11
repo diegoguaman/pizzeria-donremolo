@@ -1,4 +1,5 @@
-import { Card, CardContent, Typography, Button } from "@mui/material";
+import { useState } from "react";
+import { Card, CardContent, Typography, Button, Box } from "@mui/material";
 import { useCartStore } from "../store/cartStore";
 
 type Product = {
@@ -9,14 +10,25 @@ type Product = {
 };
 
 export default function ProductCard({ product }: { product: Product }) {
-  const addToCart = useCartStore((state) => state.addToCart);
+  const { addToCart } = useCartStore();
+  const [quantity, setQuantity] = useState(1);
 
   return (
     <Card sx={{ maxWidth: 300, margin: 2 }}>
       <CardContent>
         <Typography variant="h5">{product.name}</Typography>
         <Typography variant="body1">${product.price}</Typography>
-        <Button variant="contained" color="primary" onClick={() => addToCart({ ...product, quantity: 1 })}>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1, marginTop: 2 }}>
+          <Button variant="contained" onClick={() => setQuantity((q) => Math.max(1, q - 1))}>-</Button>
+          <Typography>{quantity}</Typography>
+          <Button variant="contained" onClick={() => setQuantity((q) => q + 1)}>+</Button>
+        </Box>
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{ marginTop: 2 }}
+          onClick={() => addToCart({ ...product, quantity })}
+        >
           Agregar al Carrito
         </Button>
       </CardContent>

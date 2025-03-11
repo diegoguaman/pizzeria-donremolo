@@ -5,13 +5,13 @@ type Product = {
   name: string;
   price: number;
 };
-type CartItem = Product & { quantity: number }; // CartItem ahora hereda de Product y añade quantity
 
+type CartItem = Product & { quantity: number };
 
 type CartStore = {
   cart: CartItem[];
   addToCart: (item: CartItem) => void;
-  removeFromCart: (id: number) => void;
+  removeFromCart: (id: number, removeAll?: boolean) => void;
   clearCart: () => void;
 };
 
@@ -29,9 +29,20 @@ export const useCartStore = create<CartStore>((set) => ({
       }
       return { cart: [...state.cart, { ...item, quantity: 1 }] };
     }),
-  removeFromCart: (id) =>
-    set((state) => ({
-      cart: state.cart.filter((item) => item.id !== id),
-    })),
+
+  removeFromCart: (id, removeAll = false) =>
+    set((state) => {
+      if (removeAll) {
+        return { cart: state.cart.filter((item) => item.id !== id) };
+      }
+      return {
+        cart: state.cart
+          .map((item) =>
+            item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+          )
+          .filter((item) => item.quantity > 0),
+      };
+    }),
+
   clearCart: () => set({ cart: [] }),
 }));
