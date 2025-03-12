@@ -10,8 +10,8 @@ type CartItem = Product & { quantity: number };
 
 type CartStore = {
   cart: CartItem[];
-  addToCart: (item: Product) => void;
-  removeFromCart: (id: number) => void;
+  addToCart: (item: CartItem) => void;
+  removeFromCart: (id: number, removeAll?: boolean) => void;
   clearCart: () => void;
   increaseQuantity: (id: number) => void;
   decreaseQuantity: (id: number) => void;
@@ -38,42 +38,19 @@ export const useCartStore = create<CartStore>((set) => ({
       return { cart: updatedCart };
     }),
 
-  removeFromCart: (id) =>
+  removeFromCart: (id, removeAll = false) =>
     set((state) => {
-      const updatedCart = state.cart.filter((item) => item.id !== id);
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
-      return { cart: updatedCart };
+      if (removeAll) {
+        return { cart: state.cart.filter((item) => item.id !== id) };
+      }
+      return {
+        cart: state.cart
+          .map((item) =>
+            item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+          )
+          .filter((item) => item.quantity > 0),
+      };
     }),
 
-  clearCart: () => {
-    localStorage.removeItem("cart");
-    return { cart: [] };
-  },
-
-  increaseQuantity: (id) =>
-    set((state) => {
-      const updatedCart = state.cart.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-      );
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
-      return { cart: updatedCart };
-    }),
-
-  decreaseQuantity: (id) =>
-    set((state) => {
-      let updatedCart = state.cart
-        .map((item) =>
-          item.id === id ? { ...item, quantity: item.quantity - 1 } : item
-        )
-        .filter((item) => item.quantity > 0);
-
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
-      return { cart: updatedCart };
-    }),
-
-  loadCart: () =>
-    set(() => {
-      const savedCart = JSON.parse(localStorage.getItem("cart") || "[]");
-      return { cart: savedCart };
-    }),
+  clearCart: () => set({ cart: [] }),
 }));
